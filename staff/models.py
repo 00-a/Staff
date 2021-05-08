@@ -15,6 +15,10 @@ class Employee(models.Model):
     def __str__(self):
         return f'{self.name} {self.surname}'
 
+    class Meta:
+        verbose_name = 'Employee'
+        verbose_name_plural = 'Staff'
+
 
 class Position(models.Model):
     """Employee position"""
