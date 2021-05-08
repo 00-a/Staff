@@ -11,8 +11,5 @@ venv
 # ignore media folder
 media
 
-# SQLite3
-db.sqlite3
-
 # django-environment settins
 .env
