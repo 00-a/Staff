@@ -11,12 +11,22 @@ class RecursiveSerializer(serializers.Serializer):
         return serializer.data
 
 
+class FilterStaffSerializer(serializers.ListSerializer):
+    """For remove staff duplicates """
+
+    def to_representation(self, data):
+        data = data.filter(parent=None)
+        return super().to_representation(data)
+
+
 class StaffListSerializer(serializers.ModelSerializer):
     """List of staff"""
 
+    position = serializers.SlugRelatedField(slug_field="name", read_only=True)
     children = RecursiveSerializer(many=True)
 
     class Meta:
+        list_serializer_class = FilterStaffSerializer
         model = Employee
         fields = '__all__'
 
