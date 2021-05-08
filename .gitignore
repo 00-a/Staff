@@ -1,0 +1,18 @@
+# system, cache or compiled files
+__pycache__
+.idea/
+.pytest_cache/
+.cache/
+.DS_Store
+
+# virtual environment
+venv
+
+# ignore media folder
+media
+
+# SQLite3
+db.sqlite3
+
+# django-environment settins
+.env
