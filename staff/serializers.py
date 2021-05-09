@@ -32,7 +32,7 @@ class StaffListSerializer(serializers.ModelSerializer):
 
 
 class ChildrenEmployeeDetailSerializer(serializers.ModelSerializer):
-    """Serializer for employee children"""
+    """Serializer for employee children in detail view"""
 
     class Meta:
         model = Employee

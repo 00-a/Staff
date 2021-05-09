@@ -1,6 +1,4 @@
 from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from .models import Employee
 from .serializers import StaffListSerializer, EmployeeDetailSerializer, EmployeeCreateSerializer
@@ -8,6 +6,7 @@ from .serializers import StaffListSerializer, EmployeeDetailSerializer, Employee
 
 class StaffListView(generics.ListAPIView):
     """List of staff"""
+
     serializer_class = StaffListSerializer
 
     def get_queryset(self):

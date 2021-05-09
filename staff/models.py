@@ -3,6 +3,7 @@ from django.db import models
 
 class Employee(models.Model):
     """Employee. Parent - employee chief"""
+
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
     position = models.ForeignKey('Position', on_delete=models.SET_NULL, null=True)
@@ -22,6 +23,7 @@ class Employee(models.Model):
 
 class Position(models.Model):
     """Employee position"""
+
     name = models.CharField(max_length=100, verbose_name='Position name')
 
     def __str__(self):
