@@ -17,7 +17,7 @@ class StaffListView(generics.ListAPIView):
 class EmployeeDetailView(generics.RetrieveAPIView):
     """Employee detail"""
 
-    queryset = Employee.objects.filter()
+    queryset = Employee.objects.all()
     serializer_class = EmployeeDetailSerializer
 
 
