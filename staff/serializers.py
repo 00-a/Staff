@@ -31,6 +31,27 @@ class StaffListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ChildrenEmployeeDetailSerializer(serializers.ModelSerializer):
+    """Serializer for employee children"""
+
+    class Meta:
+        model = Employee
+        fields = ('name', 'surname')
+
+
+class EmployeeDetailSerializer(serializers.ModelSerializer):
+    """Details of employee"""
+
+    position = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    parent = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    children = ChildrenEmployeeDetailSerializer(many=True)
+
+    class Meta:
+        list_serializer_class = FilterStaffSerializer
+        model = Employee
+        fields = '__all__'
+
+
 class EmployeeCreateSerializer(serializers.ModelSerializer):
     """Create a new employee"""
 

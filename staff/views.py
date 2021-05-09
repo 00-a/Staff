@@ -1,33 +1,29 @@
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Employee
-from .serializers import StaffListSerializer, EmployeeCreateSerializer
+from .serializers import StaffListSerializer, EmployeeDetailSerializer, EmployeeCreateSerializer
 
 
-class StaffListView(APIView):
+class StaffListView(generics.ListAPIView):
     """List of staff"""
+    serializer_class = StaffListSerializer
 
-    def get(self, request):
+    def get_queryset(self):
         staff = Employee.objects.all()
-        serializer = StaffListSerializer(staff, many=True)
-        return Response(serializer.data)
+        return staff
 
 
-class EmployeeDetailView(APIView):
+class EmployeeDetailView(generics.RetrieveAPIView):
     """Employee detail"""
 
-    def get(self, request, pk):
-        employee = Employee.objects.get(pk=pk)
-        serializer = StaffListSerializer(employee)
-        return Response(serializer.data)
+    queryset = Employee.objects.filter()
+    serializer_class = EmployeeDetailSerializer
 
 
-class EmployeeCreateView(APIView):
+class EmployeeCreateView(generics.CreateAPIView):
     """Create a new employee"""
 
-    def post(self, request):
-        employee = EmployeeCreateSerializer(data=request.data)
-        if employee.is_valid():
-            employee.save()
-        return Response(status=201)
+    serializer_class = EmployeeCreateSerializer
+
