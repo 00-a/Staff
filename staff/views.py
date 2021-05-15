@@ -1,5 +1,6 @@
-from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Employee
 from .serializers import StaffListSerializer, EmployeeDetailSerializer, EmployeeCreateSerializer
@@ -12,10 +13,9 @@ class StaffListView(generics.ListAPIView):
     serializer_class = StaffListSerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_class = StaffFilter
+    pagination_class = PageNumberPagination
 
-    def get_queryset(self):
-        staff = Employee.objects.all()
-        return staff
+    queryset = Employee.objects.filter(parent=None)
 
 
 class EmployeeDetailView(generics.RetrieveAPIView):

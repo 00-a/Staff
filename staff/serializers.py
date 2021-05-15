@@ -6,17 +6,9 @@ from .models import Employee
 class RecursiveSerializer(serializers.Serializer):
     """Recursive for employee children"""
 
-    def to_representation(self, instance):
-        serializer = self.parent.parent.__class__(instance, context=self.context)
-        return serializer.data
-
-
-class FilterStaffSerializer(serializers.ListSerializer):
-    """For remove staff duplicates """
-
     def to_representation(self, data):
-        data = data.filter(parent=None)
-        return super().to_representation(data)
+        serializer = self.parent.parent.__class__(data, context=self.context)
+        return serializer.data
 
 
 class StaffListSerializer(serializers.ModelSerializer):
@@ -26,7 +18,6 @@ class StaffListSerializer(serializers.ModelSerializer):
     children = RecursiveSerializer(many=True)
 
     class Meta:
-        list_serializer_class = FilterStaffSerializer
         model = Employee
         fields = '__all__'
 
@@ -47,7 +38,6 @@ class EmployeeDetailSerializer(serializers.ModelSerializer):
     children = ChildrenEmployeeDetailSerializer(many=True)
 
     class Meta:
-        list_serializer_class = FilterStaffSerializer
         model = Employee
         fields = '__all__'
 
