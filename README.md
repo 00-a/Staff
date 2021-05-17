@@ -7,8 +7,13 @@ Staff accounting service
 - **Employee:**
   + get a list of staff using pagination;
   + get an employee by id;
-  + create a new employee;
-    
+  + create a new employee.
+  
+- **JSON Web Token (JWT):**
+  + get JWT;
+  + update JWT;
+  + verify JWT.
+  
 ***
 
 ## Launch project (local)
